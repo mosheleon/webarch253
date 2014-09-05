@@ -1,0 +1,5 @@
+1) As for experience with web archtecture I have done a little rails development, but I can't claim to be an expert. 
+I have Used HTML before, and also with embeded JS and Ruby scripts. I wish to become more proficient with JS CSS and HTML,
+since I am more of a back-end developer.
+
+2) My favorite 2 browsers are Mozila firefox, with their firebug tool, and chrome with their built in dev-tools.
