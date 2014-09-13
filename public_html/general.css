@@ -1,0 +1,19 @@
+/* general css */
+
+.center {
+    text-align: center;
+}
+
+#about_me {
+	color: green;
+}
+
+#hate_list, #like_to_eat {
+	font-size: 120%;
+}
+
+p {
+    font-size: 120%;
+}
+
+ul li { display: inline-block}
