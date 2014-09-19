@@ -7,34 +7,225 @@
         <meta name="viewport" content="width=device-width">
     </head>
     <body>
-		<form id="madlib-input">
-			<p>Please Input your answers below!</p>
-			<!-- inputs... -->
-		</form>
-		
-		<div id="madlib-output">
-		</div>
+	<form id="madlib-input">
+	    <h1> Dungeons and Madlibs! </h1>
+	    <p>Please input your answers below!</p>
+	    <!-- inputs... -->
+	
+	    Choose a gender:
+	    <input id="gend1" type="radio" name="gender" value="male" checked>Male
+	    <input id="gend2" type="radio" name="gender" value="female">Female<br>
+	
+	    Pick a first name (Alphabetic characters only):
+	    <input id="nam" type="text" name="name" value="your name"><br>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	    Select a race: 
+	    <input id="race1" type="radio" name="race" value="human" checked>Human
+	    <input id="race2" type="radio" name="race" value="elf">Elf
+	    <input id="race3" type="radio" name="race" value="dwarf">Dwarf<br>
+
+	    Pick a profession: 
+	    <input id="prof1" type="radio" name="profession" value="thief" checked>Thief
+	    <input id="prof2" type="radio" name="profession" value="fighter">Fighter
+	    <input id="prof3" type="radio" name="profession" value="mage">Mage<br>
+	
+	    Select a level, range 1-10:
+            <input id="lev" type="text" name="level" min="1" max="10" step="1" value="1"><br>
+	
+	    Choose your foe (one, and only one please!):
+	    <input id="foe1" type="checkbox" name="foes" value="goblin">Goblin
+            <input id="foe2" type="checkbox" name="foes" value="minotaur">Minotaur
+            <input id="foe3" type="checkbox" name="foes" value="dragon">Dragon<br>
+
+	    Pick a location:
+	    <input id="loc1" type="radio" name="location" value="tower" checked>Tower
+	    <input id="loc2" type="radio" name="location" value="maze">Maze
+	    <input id="loc3" type="radio" name="location" value="forest">Forest<br>
+
+	    Select your weapon:
+	    <select id="weapon" name="weapon">
+		<option value="bare hands" selected="selected"> Bare Hands </option>	        
+		<option value="wand">  Wand       </option>
+	        <option value="sword"> Sword      </option>
+	        <option value="axe">   Axe        </option>
+	    </select><br>
+
+            <input id="subm" type="submit" value="Continue">
+		
+	</form>
+		
+	<div id="madlib-output" style="display:none;">
+	    <h3> And so the legend begins... </h3> <br>
+	    Once upon a time, there was a <span id=one></span>, <span id=two></span> <span id=three></span> the <span id=four></span>. <br>
+	    <span id=five></span> went to kill the <span id=six></span> which lived in the far, far <span id=seven></span>. <br>
+	    Armed with <span id=eight></span> <span id=nine></span>, <span id=ten></span> approached the <span id=eleven></span>,
+	    and tried to kill the <span id=twelve></span>. <br>
+	    <span id=thirteen></span> <span id=fourteen></span>, because <span id=fifteen></span> was very <span id=sixteen></span>.<br>
+	    The end! <br>
+	    
+	</div>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<!-- Optionally include other scripts
         <script src="js/main.js"></script>
 		-->
 
         <!-- You may add Javascript functions below -->
         <script>
-			function validate() {
-				if ($("input:first").val() == "correct") {
-					$("#madlib-output").text("input: correct");
-				} else {
-					alert("Error!");
-				}
-				return false;
-			}
+	    function validate() {
+		errors = [];
+		selection = {};
+	        //if ($("input:first").val() == "male") {
+	        //    $("#madlib-output").text("input: correct");
+		//}
 
-			$(document).ready(function() {
-				$("#madlib-input").submit(validate);
-				console.log("ready!");
-			});
+		//validations start here
+
+		// validating gender
+		if( $('input[name=gender]:checked').length == 0 ){
+		    errors += "Please pick a gender\n";
+		}
+		if( $('input[name=gender]:checked').length > 1 ){
+		    errors += "You cannot select more than one gender\n";
+		}
+		if( $('input[name=gender]:checked').length == 1 ){
+		    console.log("gender selected: " + $('input[name=gender]:checked').val());
+		    selection['gender'] = $('input[name=gender]:checked').val();
+		}
+		// validating name, used http://stackoverflow.com/questions/14773421/regex-for-name-validation-with-atleast-one-alpahbeta-z + modifications
+		if( /^\s*[a-zA-Z]*[a-zA-Z]+[a-zA-Z]*\s*$/.test($('input[name=name]').val() ) ){
+		    console.log("name selected: " + $('input[name=name]').val().trim());
+		    selection['name'] = $('input[name=name]').val().trim();
+		} else {
+			errors += "The name you enterred is wrong- please verify it is a single, alphabetic composed name\n";
+		}
+
+		// validating race
+		if( $('input[name=race]:checked').length == 0 ){
+		    errors += "Please pick a race\n";
+		}
+		if( $('input[name=race]:checked').length > 1 ){
+		    errors += "You cannot select more than one race\n";
+		}
+		if( $('input[name=race]:checked').length == 1 ){
+		    console.log("race selected: " + $('input[name=race]:checked').val());
+		    selection['race'] = $('input[name=race]:checked').val();
+		}
+
+		// validating profession
+		if( $('input[name=profession]:checked').length == 0 ){
+		    errors += "Please pick a profession\n";
+		}
+		if( $('input[name=profession]:checked').length > 1 ){
+		    errors += "You cannot select more than one profession\n";
+		}
+		if( $('input[name=profession]:checked').length == 1 ){
+		    console.log("profession selected: " + $('input[name=profession]:checked').val());
+		    selection['profession'] = $('input[name=profession]:checked').val();
+		    
+		}
+
+		// validating level, used http://stackoverflow.com/questions/18082/validate-decimal-numbers-in-javascript-isnumeric + modifications
+		if(  (/^\s*-{0,1}\d*\.{0,1}\d+\s*$/.test($('input[name=level]').val() ))  &&  ($('input[name=level]').val() <= 10)   &&   ($('input[name=level]').val() > 0)  ){
+		    console.log("level selected: " + $('input[name=level]').val().trim() );
+		    selection['level'] = $('input[name=level]').val().trim();
+		} else {
+			errors += "The level you enterred is wrong- please verify it is a decimal number, between 1-10\n";
+		}
+
+		// validating foes
+		if( $('input[name=foes]:checked').length == 0 ){
+		    errors += "Please pick a foe\n";
+		}
+		if( $('input[name=foes]:checked').length > 1 ){
+		    errors += "You cannot select more than one foe\n";
+		}
+		if( $('input[name=foes]:checked').length == 1 ){
+		    console.log("foe selected: " + $('input[name=foes]:checked').val());
+		    selection['foe'] = $('input[name=foes]:checked').val();
+		}
+
+		// validating location
+		if( $('input[name=location]:checked').length == 0 ){
+		    errors += "Please pick a location\n";
+		}
+		if( $('input[name=location]:checked').length > 1 ){
+		    errors += "You cannot select more than one location\n";
+		}
+		if( $('input[name=location]:checked').length == 1 ){
+		    console.log("location selected: " + $('input[name=location]:checked').val());
+		    selection['location'] = $('input[name=location]:checked').val();
+		}
+		
+		// validating weapon    
+	        var weapon = $("#weapon").val();
+		if( weapon != null && weapon == "bare hands" || weapon == "wand" || weapon == "sword" || weapon == "axe" ){ 
+		    console.log("weapon selected: " + $("#weapon").val() );
+		    selection['weapon'] = $("#weapon").val();
+		} else { 
+			errors += "Please select a weapon, even if it is just bare hands!\n";
+		}
+		
+		console.log(errors);
+		console.log(selection);	
+		
+		if(errors.length > 0){
+		    alert(errors);
+		    document.getElementById("madlib-output").style.display="none";
+		}
+		else { // let the story begin.... 
+		    document.getElementById("madlib-output").style.display="inline";
+		    
+                    selection['gender'] == 'male' ? document.getElementById("one").innerHTML='hero' : document.getElementById("one").innerHTML='heroine'
+		    selection['gender'] == 'male' ? document.getElementById("two").innerHTML='sir' : document.getElementById("two").innerHTML='lady' 
+		    document.getElementById("three").innerHTML=selection['name'];   
+		    
+		    switch(selection['profession']){
+		        case 'mage':
+			    document.getElementById("four").innerHTML='mysterious';
+			    break;
+			case 'fighter':
+                            console.log("got here");
+			    document.getElementById("four").innerHTML='brave';
+			    break;
+			case 'thief':
+			    document.getElementById("four").innerHTML='cunning';
+			    break;
+		    }
+
+		    selection['gender'] == 'male' ? document.getElementById("five").innerHTML='He' : document.getElementById("five").innerHTML='She';		    
+		    document.getElementById("six").innerHTML=selection['foe'];
+		    document.getElementById("seven").innerHTML=selection['location'];
+		    selection['gender'] == 'male' ? document.getElementById("eight").innerHTML='his' : document.getElementById("eight").innerHTML='her';
+		    document.getElementById("nine").innerHTML=selection['weapon'];
+		    selection['gender'] == 'male' ? document.getElementById("ten").innerHTML='he' : document.getElementById("ten").innerHTML='she';
+		    document.getElementById("eleven").innerHTML=selection['location'];
+		    document.getElementById("twelve").innerHTML=selection['foe'];
+		    selection['gender'] == 'male' ? document.getElementById("thirteen").innerHTML='He' : document.getElementById("thirteen").innerHTML='She';
+		    selection['gender'] == 'male' ? document.getElementById("fifteen").innerHTML='he' : document.getElementById("fifteen").innerHTML='she';
+		    
+		    if( selection['level'] < 5 ){
+			document.getElementById("fourteen").innerHTML=['lost'];
+			document.getElementById("sixteen").innerHTML=['inexperienced'];
+		    } else {
+			document.getElementById("fourteen").innerHTML=['won'];
+			document.getElementById("sixteen").innerHTML=['experienced'];
+		    }
+		    
+			
+		}
+
+		return false;
+	    }// end validate()
+
+	    $(document).ready(function() {
+		$("#madlib-input").submit(validate);
+		console.log("ready!");
+	    });
         </script>
     </body>
 </html>
+<!-- text field, numeric text field, radio buttons, More than 1 checkbox, select input, label tags for all inputs, submit input, 
+     on submit, write javascript that checks the input, Make sure all inputs are filled in, Make sure numeric field only has numbers
+    (even if numeric input), Do not display story if there are errors, after validating insert HTML into the page to write your story 
+-->
