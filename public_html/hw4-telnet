@@ -1,0 +1,82 @@
+   1) Using 127.0.0.1 $FLASK_PORT
+       1) What is the return code for GET /home HTTP/1.1?
+		I am getting:
+			127.0.0.1 - - [25/Sep/2014 17:34:13] "GET /home HTTP/1.1" 200 -
+			HTTP/1.0 200 OK
+			Content-Type: text/html; charset=utf-8
+			Content-Length: 228
+			Server: Werkzeug/0.8.3 Python/2.7.3
+			Date: Fri, 26 Sep 2014 00:34:13 GMT
+
+			<!DOCTYPE html>
+			<html lang="en-us">
+				<head>
+					<meta charset="utf-8">
+					<title>i253</title>
+					<link rel="stylesheet" href="static/css/default.css">
+				</head>
+				<body>
+					<div class="container">
+						Hello Jim
+					</div>
+				</body>
+			</html>Connection closed by foreign host.
+
+		Which is a response line with code 200 from the first line, which indicates success. 
+		Then I am getting the content of the return parsed, with the length, content type, 
+		server name, and the date. Right after I am getting the html recieved back. 
+
+       2) What is the return code for GET /wiki HTTP/1.1?
+		I am getting:
+			127.0.0.1 - - [25/Sep/2014 17:38:32] "GET /wiki HTTP/1.1" 302 -
+			HTTP/1.0 302 FOUND
+			Content-Type: text/html; charset=utf-8
+			Content-Length: 253
+			Location: http://en.wikipedia.org
+			Server: Werkzeug/0.8.3 Python/2.7.3
+			Date: Fri, 26 Sep 2014 00:38:32 GMT
+
+			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+			<title>Redirecting...</title>
+			<h1>Redirecting...</h1>
+			<p>You should be redirected automatically to target URL: <a href="http://en.wikipedia.org">http://en.wikipedia.org</a>.  If not click the link.Connection closed by foreign host.
+
+		Which is a response to a redirect- 302, did not find required address but a 
+		redirect to a different address, within the returned HTML.
+
+            1) What is the next HTTP statement a browser would send after this return code? (provide the statement as you would type it into telnet)
+		The browser will send an HTTP GET statement containing the new url from the parsed, recieved html 302 response.
+
+       3) What is the return code for PUT /wiki HTTP/1.1?
+		I am getting:
+			127.0.0.1 - - [25/Sep/2014 17:48:56] "PUT /wiki HTTP/1.1" 200 -
+			HTTP/1.0 200 OK
+			Content-Type: text/html; charset=utf-8
+			Content-Length: 38
+			Server: Werkzeug/0.8.3 Python/2.7.3
+			Date: Fri, 26 Sep 2014 00:48:56 GMT
+
+			Stored wiki => http://en.wikipedia.orgConnection closed by foreign host.
+
+		Which means, that my PUT request was fine, due to 200 response, and the POST is doing something 
+		on the server, which outputs a string message back of some placement in the database or any other hidden occurence.
+
+   2) Explain what happens when your browser loads http://people.ischool.berkeley.edu/~<USER>/server/wiki from sending the request to loading HTML
+		The browser will get the redirect instruction with a replacement address URL from the recieved HTML from the first GET and 
+		initial URL response and redirect there by doing another GET request with the new URL.
+ 
+   3) What is the return code for http://people.ischool.berkeley.edu/~<USER>/server/ ?
+		127.0.0.1 - - [25/Sep/2014 18:06:37] "GET /~mleon/server HTTP/1.1" 404 -
+		HTTP/1.0 404 NOT FOUND
+		Content-Type: text/html
+		Content-Length: 238
+		Server: Werkzeug/0.8.3 Python/2.7.3
+		Date: Fri, 26 Sep 2014 01:06:37 GMT
+
+		<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+		<title>404 Not Found</title>
+		<h1>Not Found</h1>
+		<p>The requested URL was not found on the server.</p><p>If you entered the URL manually please check your spelling and try again.</p>
+		Connection closed by foreign host.
+
+		
