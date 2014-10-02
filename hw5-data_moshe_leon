@@ -1,0 +1,37 @@
+hw5-data, moshe leon
+
+1. What HTTP command is used to make the /home resource respond with your full name (including spaces), the title of the page should be the full title of this class.
+	The command: GET /home?name=Moshe%20Leon&title=Web%20Architecture%20253 HTTP/1.1
+
+2. Use a PUT request to set the redirect target of http://people.ischool.berkeley.edu/~<USER>/server/wiki
+	Using these lines would set the redirect address stored on the server (the last line is the address)
+
+	PUT /wiki HTTP/1.1
+	Host: localhost
+	Content-Length: 22
+	Content-Type: application/x-www-form-urlencoded
+	
+	url=http://hotmail.com
+
+        1. How do you verify this change?
+		using these two lines would give me the redirect address stored on the server
+
+		PUT /wiki HTTP/1.1
+		Host: localhost
+
+3. Use a POST to update the redirect target of http://people.ischool.berkeley.edu/~<USER>/server/wiki to a another new location.
+	POST /wiki HTTP/1.1
+	Host: localhost
+	Content-Length: 20
+	Content-Type: application/x-www-form-urlencoded
+
+	url=http://yahoo.com
+
+4. Update app.py to correctly return an image from http://people.ischool.berkeley.edu/~<USER>/server/i253
+        * Use your browser to test
+		strangely enough, firefox and chrome did not display the pic, but internet explorer worked!
+		"My friend Jim said i253 was fun" is the image text. 
+        * Including the Content-Type in your submission
+		content type is 'image/png'
+
+
