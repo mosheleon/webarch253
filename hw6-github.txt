@@ -1,0 +1,22 @@
+Moshe Leon, hw6-github
+
+1.Use the Users resource to discover how many public repositories (public_repos) I have (jblomo). 
+	Answer: 39
+	Command used: curl -i "https://api.github.com/users/jblomo"
+
+2.Use the Repositories resource to discover which repositories (full_name) I am only a member of. 
+	Answer: 28
+	Commands used: 1) curl -i "https://api.github.com/users/jblomo/repos?type=member" > member.json // to send a curl GET command for my api call, and store in my file
+		       2) grep "login" member.json | wc -l						// to search the file and output occurences of my string
+
+3.Use the Repositories resource to find the login s of the contributors to the mrjob repository owned by Yelp 
+	Answer: 30
+	Commands used: 1) curl -i "https://api.github.com/repos/yelp/mrjob/contributors" > contributors.json  // to send a curl GET command for my api call, and store in my file
+		       2) grep "login" contributors.json | wc -l                                              // to search the file and output occurences of my string of choice 		        
+
+4.Use the Commits resource to find what the message was of the first commit to the webarch253 repository owned by jblomo. 
+	Answer: "initial"
+	Command used: curl -i "https://api.github.com/repos/jblomo/webarch253/commits/9aae663bd3e6bfde4b16ee449e2a2e7653ba05e6"
+	Explanation: I got the sha of the first commit from the repository page, going all the way to the begining. 
+		     An alternative would be to keep using the 'until' parameter with an earlier date/time until the first
+		     one is achieved.
