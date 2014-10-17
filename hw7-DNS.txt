@@ -1,0 +1,30 @@
+Moshe Leon, hw7-DNS
+
+1.What series of IPs would a recursive DNS server use to find the address of m.yelp.com? 
+	Command is: "host -v m.yelp.com"
+	This generates a series of recursive calls to different ip addresses, which some
+        are Authorities which are being asked along the way for the next place to visit.
+	m.sfo1.yelp.com.        60      IN      A       199.255.189.234
+        m.sfo1.yelp.com.        60      IN      A       199.255.189.34
+        ns1.p18.dynect.net.     83187   IN      A       208.78.70.18
+        ns2.p18.dynect.net.     83211   IN      A       204.13.250.18
+        ns3.p18.dynect.net.     78541   IN      A       208.78.71.18
+        ns4.p18.dynect.net.     83036   IN      A       204.13.251.18
+	ns1.p18.dynect.net. hostmaster.yelpcorp.com. 2014101400 3600 900 604800 3600 (done)
+
+2.What are the IP addresses of m.yelp.com? 
+	198.51.132.234 and 198.51.132.34
+	Got both by writing command: host m.yelp.com
+ 
+3.Do IP packets leave the Berkeley network when traveling to amplab.cs.berkeley.edu from harbinger.ischool.berkeley.ede? Include the command and output. 
+	No, they do not leave the Berkeley network.
+	Command and output:
+	harbinger:~/webarch2014$ traceroute amplab.cs.berkeley.edu
+        traceroute to amplab.cs.berkeley.edu (128.32.37.248), 30 hops max, 60 byte packets
+        1  g3-35.inr-211-srb.Berkeley.EDU (128.32.78.3)  0.736 ms  0.793 ms  0.755 ms
+        2  t6-1.inr-202-reccev.Berkeley.EDU (128.32.255.126)  0.709 ms  0.728 ms  0.754 ms
+        3  reccev-eecs-br-10GE.EECS.Berkeley.EDU (128.32.255.58)  1.987 ms  2.005 ms  1.989 ms
+        4  soda-10g-edge.EECS.Berkeley.EDU (169.229.59.242)  29.684 ms  30.084 ms  30.068 ms
+        5  www-research2.CS.Berkeley.EDU (128.32.37.248)  1.464 ms !X  1.542 ms !X  1.575 ms !X
+
+	
